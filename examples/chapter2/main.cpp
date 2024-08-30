@@ -4,7 +4,7 @@
 
 int main()
 {
-    Application application(2000, 1500, "Hello, World!");
+    Application application(800, 600, "OpenGL");
 
     application.Run(nullptr);
     return 0;
