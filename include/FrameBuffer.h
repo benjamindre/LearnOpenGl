@@ -23,8 +23,10 @@ public:
     void UnbindFrameBuffer();
 
     void RescaleFramebuffer(int width, int height);
+
+    uint32_t GetTextureID() const { return m_TextureID; }
 private:
     uint32_t m_FBO;
-    uint32_t m_Texture;
+    uint32_t m_TextureID;
     uint32_t m_RBO;
 };
