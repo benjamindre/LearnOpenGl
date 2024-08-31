@@ -30,10 +30,17 @@ public:
     void Run(const SRef<DockSpace>& dockSpace) const;
 
     void SetIcon(std::string_view filename) const;
+    void SetIniFilename(const char* filename);
     void SetClearColor(const glm::vec3& color);
     void GlEnable(uint32_t model);
 
     void PushLayer(SRef<IOpenGlLayer>&& layer);
+
+    int GetWidth() const { return m_Width; }
+    int GetHeight() const { return m_Height; }
+    std::string_view GetTitle() const { return m_Title; }
+
+    GLFWwindow* GetWindow() const { return m_GlfWwindow; }
 private:
     static void ViewportResizeCallback(GLFWwindow* window, int width, int height);
 private:

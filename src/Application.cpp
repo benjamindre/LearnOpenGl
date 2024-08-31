@@ -127,6 +127,11 @@ void Application::SetIcon(std::string_view filename) const
     stbi_image_free(iconImage.pixels);
 }
 
+void Application::SetIniFilename(const char* filename)
+{
+    ImGui::GetIO().IniFilename = filename;
+}
+
 
 void Application::SetClearColor(const glm::vec3& color)
 {
