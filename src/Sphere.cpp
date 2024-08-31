@@ -66,42 +66,42 @@ Sphere::Sphere(int stackCount, int sectorCount, float radius)
     // Y -> Z
     AxisRotation();
 
-    glGenVertexArrays(1, &m_VAO);
-    glGenBuffers(3, m_VBO);
-    glGenBuffers(1, &m_EBO);
-
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[0]);
-    glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * sizeof(float), m_Vertices.data(), GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[1]);
-    glBufferData(GL_ARRAY_BUFFER, m_Normals.size() * sizeof(float), m_Normals.data(), GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[2]);
-    glBufferData(GL_ARRAY_BUFFER, m_TextureCoords.size() * sizeof(float), m_TextureCoords.data(), GL_STATIC_DRAW);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(2);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(int), m_Indices.data(), GL_STATIC_DRAW);
+//    glGenVertexArrays(1, &m_VAO);
+//    glGenBuffers(3, m_VBO);
+//    glGenBuffers(1, &m_EBO);
+//
+//    glBindVertexArray(m_VAO);
+//    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[0]);
+//    glBufferData(GL_ARRAY_BUFFER, m_Vertices.size() * sizeof(float), m_Vertices.data(), GL_STATIC_DRAW);
+//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+//    glEnableVertexAttribArray(0);
+//
+//    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[1]);
+//    glBufferData(GL_ARRAY_BUFFER, m_Normals.size() * sizeof(float), m_Normals.data(), GL_STATIC_DRAW);
+//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+//    glEnableVertexAttribArray(1);
+//
+//    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[2]);
+//    glBufferData(GL_ARRAY_BUFFER, m_TextureCoords.size() * sizeof(float), m_TextureCoords.data(), GL_STATIC_DRAW);
+//    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+//    glEnableVertexAttribArray(2);
+//
+//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+//    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Indices.size() * sizeof(int), m_Indices.data(), GL_STATIC_DRAW);
 }
 
-void Sphere::Draw()
+void Sphere::Draw(uint32_t vao)
 {
-    glBindVertexArray(m_VAO);
+    glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, m_Indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 
 Sphere::~Sphere()
 {
-    glDeleteVertexArrays(1, &m_VAO);
-    glDeleteBuffers(3, m_VBO);
-    glDeleteBuffers(1, &m_EBO);
+//    glDeleteVertexArrays(1, &m_VAO);
+//    glDeleteBuffers(3, m_VBO);
+//    glDeleteBuffers(1, &m_EBO);
 }
 
 void Sphere::AxisRotation()

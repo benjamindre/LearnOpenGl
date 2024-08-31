@@ -18,7 +18,7 @@ public:
     Sphere(int stackCount = 18, int sectorCount = 36, float radius = 1.0f);
     ~Sphere();
 
-    void Draw();
+    void Draw(uint32_t vao);
 
     const std::vector<float>& GetVertices() const { return m_Vertices; }
     const std::vector<float>& GetNormals() const { return m_Normals; }
@@ -32,9 +32,9 @@ private:
     int m_SectorCount;
     float m_Radius;
 
-    uint32_t m_VAO;
-    uint32_t m_VBO[3];
-    uint32_t m_EBO;
+//    uint32_t m_VAO;
+//    uint32_t m_VBO[3];
+//    uint32_t m_EBO;
 
     std::vector<float> m_Vertices;
     std::vector<float> m_Normals;
