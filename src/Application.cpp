@@ -1,5 +1,6 @@
 #include "Application.h"
 
+#include <stb_image.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui.h>
@@ -74,18 +75,19 @@ Application::~Application()
     glfwTerminate();
 }
 
-void Application::Run(const SRef<ILayer>& layer)
+void Application::Run(const SRef<DockSpace>& dockSpace) const
 {
     while (!glfwWindowShouldClose(m_GlfWwindow))
     {
+        double glfwTime = glfwGetTime();
         glfwPollEvents();
 
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        if (layer)
-            layer->Render(ImGui::GetTime());
+        if (dockSpace)
+            dockSpace->Render();
 
         ImGui::Render();
 
@@ -94,6 +96,10 @@ void Application::Run(const SRef<ILayer>& layer)
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         else
             glClear(GL_COLOR_BUFFER_BIT);
+
+
+        for (auto& layer : m_Layers)
+            layer->Render(glfwTime);
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -110,6 +116,18 @@ void Application::Run(const SRef<ILayer>& layer)
     }
 }
 
+void Application::SetIcon(std::string_view filename) const
+{
+    int channels;
+    GLFWimage iconImage;
+    iconImage.pixels = stbi_load(filename.data(), &iconImage.width, &iconImage.height, &channels, 0);
+
+    glfwSetWindowIcon(m_GlfWwindow, 1, &iconImage);
+
+    stbi_image_free(iconImage.pixels);
+}
+
+
 void Application::SetClearColor(const glm::vec3& color)
 {
     m_ClearColor = color;
@@ -123,9 +141,13 @@ void Application::GlEnable(uint32_t model)
     glEnable(model);
 }
 
+void Application::PushLayer(SRef<IOpenGlLayer>&& layer)
+{
+    m_Layers.emplace_back(layer);
+}
 
 
-void Application::ViewportResizeCallback(GLFWwindow *window, int width, int height)
+void Application::ViewportResizeCallback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
 }

@@ -8,13 +8,16 @@
 
 #pragma once
 
-#include "ILayer.h"
+#include "DockSpace.h"
+#include "IOpenGlLayer.h"
 #include "Config.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+#include <vector>
+#include <string>
 #include <string_view>
 
 class Application
@@ -24,10 +27,13 @@ public:
 
     ~Application();
 
-    void Run(const SRef<ILayer>& layer);
+    void Run(const SRef<DockSpace>& dockSpace) const;
 
+    void SetIcon(std::string_view filename) const;
     void SetClearColor(const glm::vec3& color);
     void GlEnable(uint32_t model);
+
+    void PushLayer(SRef<IOpenGlLayer>&& layer);
 private:
     static void ViewportResizeCallback(GLFWwindow* window, int width, int height);
 private:
@@ -38,4 +44,6 @@ private:
     bool m_GlDepthTest;
 
     GLFWwindow* m_GlfWwindow;
+
+    std::vector<SRef<IOpenGlLayer>> m_Layers;
 };
