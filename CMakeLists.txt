@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.26)
 
 project(LearnOpenGl)
 
@@ -19,6 +19,7 @@ add_subdirectory(external/glad)
 add_subdirectory(external/glfw)
 add_subdirectory(external/glm)
 add_subdirectory(external/imgui)
+add_subdirectory(external/stb)
 
 add_subdirectory(src)
 add_subdirectory(examples/chapter2)
