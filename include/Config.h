@@ -14,6 +14,9 @@
 
 #include <memory>
 
+#include <string>
+#include <string_view>
+
 template <typename T>
 using SRef = std::shared_ptr<T>;
 
