@@ -24,10 +24,10 @@ void DockSpace::Render()
 	ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), m_DockSpaceFlags);
 
 
+    ImGui::PopStyleVar(3);
+
     for (auto& layer : m_Layers)
         layer->Render(time);
-
-	ImGui::PopStyleVar(3);
 
 	ImGui::End();
 }
