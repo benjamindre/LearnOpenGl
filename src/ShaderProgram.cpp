@@ -84,7 +84,7 @@ uint32_t ShaderProgram::CreateShader(std::string_view filename, uint32_t type)
     const char* shaderSource = shaderStr.c_str();
 
     uint32_t shader = glCreateShader(type);
-    glShaderSource(shader, 1, &shaderSource, NULL);
+    glShaderSource(shader, 1, &shaderSource, nullptr);
     glCompileShader(shader);
 
     int32_t success;
