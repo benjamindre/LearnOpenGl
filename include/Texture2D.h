@@ -10,10 +10,12 @@
 
 #include "Config.h"
 
+#include <glad/glad.h>
+
 class Texture2D
 {
 public:
-    Texture2D(std::string_view filename, uint16_t rgbType);
+    Texture2D(std::string_view filename, uint16_t rgbType = GL_RGB);
     ~Texture2D();
 
     int GetWidth() const { return m_Width; }
