@@ -23,6 +23,7 @@ add_subdirectory(external/stb)
 
 add_subdirectory(src)
 add_subdirectory(examples/chapter2)
+add_subdirectory(examples/chapter3)
 
 
 message(STATUS "Cmake Build Type: ${CMAKE_BUILD_TYPE}")
