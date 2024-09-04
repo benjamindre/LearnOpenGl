@@ -109,9 +109,9 @@ static void GlfwCursorPosCallback(double xpos, double ypos, Camera* camera)
 
 ChapterLayer::ChapterLayer(Application* application, int width, int height)
     : m_Application(application), m_FrameBuffer(FrameBuffer(width, height)),
-    m_BoxEmission("D:\\Projects\\Github\\LearnOpenGl\\resources\\images\\matrix.jpg", GL_RGB),
-    m_BoxDiffuse("D:\\Projects\\Github\\LearnOpenGl\\resources\\images\\container2.png", GL_RGBA),
-    m_BoxSpecular("D:\\Projects\\Github\\LearnOpenGl\\resources\\images\\container2_specular.png", GL_RGBA),
+    m_BoxEmission("D:\\Projects\\Github\\LearnOpenGl\\resources\\images\\matrix.jpg"),
+    m_BoxDiffuse("D:\\Projects\\Github\\LearnOpenGl\\resources\\images\\container2.png"),
+    m_BoxSpecular("D:\\Projects\\Github\\LearnOpenGl\\resources\\images\\container2_specular.png"),
     m_BoxProgram("D:\\Projects\\Github\\LearnOpenGl\\shaders\\chapter2\\box.vert",
                     "D:\\Projects\\Github\\LearnOpenGl\\shaders\\chapter2\\box.frag"),
     m_LightProgram("D:\\Projects\\Github\\LearnOpenGl\\shaders\\chapter2\\box.vert",
