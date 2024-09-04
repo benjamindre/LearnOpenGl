@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Config.h"
+#include "Texture2D.h"
 #include "ShaderProgram.h"
 
 #include <glm/glm.hpp>
@@ -24,7 +25,7 @@ struct Vertex
 
 struct Texture
 {
-    uint32_t TextureID;
+    std::shared_ptr<Texture2D> Texture;
     std::string Type;
     std::string Path;
 };

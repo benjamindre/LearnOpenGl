@@ -27,15 +27,17 @@ void Mesh::Draw(ShaderProgram* shader) const
     {
         glActiveTexture(GL_TEXTURE0 + i);
 
+        const Texture& texture = m_Textures[i];
+
         std::string number;
-        std::string name = m_Textures[i].Type;
+        std::string name = texture.Type;
         if(name == "texture_diffuse")
             number = std::to_string(diffuseNumer++);
         else if(name == "texture_specular")
             number = std::to_string(specularNumber++);
 
         shader->SetInt((name + number).c_str(), i);
-        glBindTexture(GL_TEXTURE_2D, m_Textures[i].TextureID);
+        glBindTexture(GL_TEXTURE_2D, texture.Texture->GetTextureID());
     }
 
     glBindVertexArray(m_VAO);
