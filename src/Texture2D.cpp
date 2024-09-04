@@ -4,9 +4,10 @@
 #include <stb_image.h>
 #include <glad/glad.h>
 
-Texture2D::Texture2D(std::string_view filename)
+Texture2D::Texture2D(std::string_view filename, bool flipVertically)
 {
-    stbi_set_flip_vertically_on_load(true);
+    if (flipVertically)
+        stbi_set_flip_vertically_on_load(true);
 
     uint16_t format = GL_RGB;
     uint8_t* pixels = stbi_load(filename.data(), &m_Width, &m_Height, &m_Channels, 0);

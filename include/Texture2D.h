@@ -18,7 +18,7 @@
 class Texture2D
 {
 public:
-    Texture2D(std::string_view filename);
+    Texture2D(std::string_view filename, bool flipVertically = true);
     ~Texture2D();
 
     int GetWidth() const { return m_Width; }
