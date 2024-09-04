@@ -25,7 +25,6 @@ add_subdirectory(external/assimp)
 add_subdirectory(src)
 add_subdirectory(examples/chapter2)
 add_subdirectory(examples/chapter3)
-add_subdirectory(examples/chapter3zzz)
 
 
 message(STATUS "Cmake Build Type: ${CMAKE_BUILD_TYPE}")
