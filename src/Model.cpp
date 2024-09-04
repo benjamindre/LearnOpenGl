@@ -108,7 +108,7 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* material, aiTexture
         if (!skip)
         {
             Texture texture;
-            texture.Texture = std::make_shared<Texture2D>(m_Directory + "/" + std::string(str.C_Str()));
+            texture.Texture = std::make_shared<Texture2D>(m_Directory + "/" + std::string(str.C_Str()), false);
             texture.Type = typeName;
             texture.Path = std::string(str.C_Str());
             textures.push_back(texture);

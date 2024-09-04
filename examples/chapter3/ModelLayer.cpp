@@ -51,7 +51,7 @@ static void GlfwCursorPosCallback(double xpos, double ypos, Camera* camera)
 ModelLayer::ModelLayer(Application* application)
     : m_Application(application), m_FrameBuffer(FrameBuffer(m_Application->GetWidth(), m_Application->GetHeight())),
     m_ShaderProgram("D:\\Project\\GitHub\\LearnOpenGl\\shaders\\chapter3\\model_loading.vert", "D:\\Project\\GitHub\\LearnOpenGl\\shaders\\chapter3\\model_loading.frag"),
-    m_Model("D:\\Project\\GitHub\\LearnOpenGl\\resources\\model\\nanosuit\\nanosuit.obj"),
+    m_Model("D:\\Project\\GitHub\\LearnOpenGl\\resources\\model\\yuanshen\\甘雨.pmx"),
     m_Camera(glm::vec3(0.0f, 3.0f, 3.0f))
 {
 
