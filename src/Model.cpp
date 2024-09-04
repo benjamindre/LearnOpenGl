@@ -4,43 +4,6 @@
 #include <iostream>
 #include <stb_image.h>
 
-unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma)
-{
-    unsigned int textureID;
-    glGenTextures(1, &textureID);
-
-    int width, height, nrComponents;
-    unsigned char *data = stbi_load(path, &width, &height, &nrComponents, 0);
-    if (data)
-    {
-        GLenum format;
-        if (nrComponents == 1)
-            format = GL_RED;
-        else if (nrComponents == 3)
-            format = GL_RGB;
-        else if (nrComponents == 4)
-            format = GL_RGBA;
-
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        stbi_image_free(data);
-    }
-    else
-    {
-        std::cout << "Texture failed to load at path: " << path << std::endl;
-        stbi_image_free(data);
-    }
-
-    return textureID;
-}
-
 Model::Model(std::string_view filename)
 {
     Assimp::Importer importer;
@@ -61,11 +24,10 @@ Model::~Model()
 
 }
 
-void Model::
-Draw(ShaderProgram* shaderProgram) const
+void Model::Draw(ShaderProgram* shaderProgram) const
 {
     for (auto& mesh : m_Meshes)
-        mesh.Draw(shaderProgram);
+        mesh->Draw(shaderProgram);
 }
 
 void Model::ProcessNode(aiNode* node, const aiScene* scene)
@@ -73,14 +35,14 @@ void Model::ProcessNode(aiNode* node, const aiScene* scene)
     for (int i = 0; i < node->mNumMeshes; ++i)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        m_Meshes.push_back(ProcessMesh(mesh, scene));
+        m_Meshes.emplace_back(ProcessMesh(mesh, scene));
     }
 
     for (int i = 0; i < node->mNumChildren; ++i)
         ProcessNode(node->mChildren[i], scene);
 }
 
-Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+std::unique_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 {
     std::vector<Vertex> vertices;
     std::vector<int> indices;
@@ -91,6 +53,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         Vertex vertex;
         vertex.Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
         vertex.Normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+
 
         if(mesh->mTextureCoords[0]) // 网格是否有纹理坐标？
             vertex.TexCoords = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
@@ -119,7 +82,7 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     }
 
 
-    return Mesh(vertices, indices, textures);
+    return std::make_unique<Mesh>(vertices, indices, textures);
 }
 
 std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* material, aiTextureType type, std::string_view typeName)
@@ -144,10 +107,8 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* material, aiTexture
 
         if (!skip)
         {
-//            Texture2D texture2D(m_Directory + "/" + std::string(str.C_Str()), GL_RGBA);
-
             Texture texture;
-            texture.TextureID = TextureFromFile(std::string(m_Directory + "\\" + std::string(str.C_Str())).c_str(), m_Directory, false);
+            texture.Texture = std::make_shared<Texture2D>(m_Directory + "/" + std::string(str.C_Str()));
             texture.Type = typeName;
             texture.Path = std::string(str.C_Str());
             textures.push_back(texture);

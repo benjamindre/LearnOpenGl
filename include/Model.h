@@ -14,6 +14,7 @@
 
 #include <string_view>
 #include <vector>
+#include <memory>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -32,12 +33,12 @@ private:
     void ProcessNode(aiNode* node, const aiScene* scene);
 
     /// 处理网格
-    Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
+    std::unique_ptr<Mesh> ProcessMesh(aiMesh* mesh, const aiScene* scene);
 
     std::vector<Texture> LoadMaterialTextures(aiMaterial* material, aiTextureType type, std::string_view typeName);
 private:
-    std::vector<Mesh> m_Meshes;
     std::string m_Directory;
+    std::vector<std::unique_ptr<Mesh>> m_Meshes;
 
     std::vector<Texture> m_TexturesLoaded;
 };
