@@ -7,8 +7,8 @@
 
 int main()
 {
-    Application application(800, 600, "OpenGL");
-    application.SetIcon("D:\\Projects\\Github\\LearnOpenGl\\resources\\images\\icon.png");
+    Application application(2000, 1500, "OpenGL");
+    application.SetIcon("D:\\Project\\GitHub\\LearnOpenGl\\resources\\images\\icon.png");
     application.SetIniFilename("resources/chapter3.ini");
     application.GlEnable(GL_DEPTH_TEST);
 

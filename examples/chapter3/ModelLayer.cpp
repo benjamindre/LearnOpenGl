@@ -3,8 +3,8 @@
 #include <imgui.h>
 
 static bool kFirstMouse = true;
-static float kLastX = 800.0f / 2.0f;
-static float kLastY = 600.0f / 2.0f;
+static float kLastX = 2000.0f / 2.0f;
+static float kLastY = 1500.0f / 2.0f;
 
 static void ProcessInput(GLFWwindow* window, Camera* camera)
 {
@@ -50,9 +50,9 @@ static void GlfwCursorPosCallback(double xpos, double ypos, Camera* camera)
 
 ModelLayer::ModelLayer(Application* application)
     : m_Application(application), m_FrameBuffer(FrameBuffer(m_Application->GetWidth(), m_Application->GetHeight())),
-    m_ShaderProgram("D:\\Projects\\Github\\LearnOpenGl\\shaders\\chapter3\\model_loading.vert", "D:\\Projects\\Github\\LearnOpenGl\\shaders\\chapter3\\model_loading.frag"),
-    m_Model("D:\\Projects\\Github\\LearnOpenGl\\resources\\model\\nanosuit\\nanosuit.obj"),
-    m_Camera(glm::vec3(0.0f, 0.0f, 6.0f))
+    m_ShaderProgram("D:\\Project\\GitHub\\LearnOpenGl\\shaders\\chapter3\\model_loading.vert", "D:\\Project\\GitHub\\LearnOpenGl\\shaders\\chapter3\\model_loading.frag"),
+    m_Model("D:\\Project\\GitHub\\LearnOpenGl\\resources\\model\\nanosuit\\nanosuit.obj"),
+    m_Camera(glm::vec3(0.0f, 3.0f, 3.0f))
 {
 
 }
@@ -62,16 +62,15 @@ void ModelLayer::Render(double time)
     static glm::vec3 s_BackGroundColor(0.200f, 0.200f, 0.200f);
     ProcessInput(m_Application->GetWindow(), &m_Camera);
 
-//    double xpos, ypos;
-//    glfwGetCursorPos(m_Application->GetWindow(), &xpos, &ypos);
-//    GlfwCursorPosCallback(xpos, ypos, &m_Camera);
+   double xpos, ypos;
+   glfwGetCursorPos(m_Application->GetWindow(), &xpos, &ypos);
+   GlfwCursorPosCallback(xpos, ypos, &m_Camera);
 
     ImGui::Begin("Editor");
     ImGui::ColorEdit3("Bg", &s_BackGroundColor[0]);
     m_Application->SetClearColor(s_BackGroundColor);
 
     ImGui::End();
-
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
     ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
