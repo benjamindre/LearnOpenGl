@@ -33,12 +33,12 @@ private:
     void ProcessNode(aiNode* node, const aiScene* scene);
 
     /// 处理网格
-    std::unique_ptr<Mesh> ProcessMesh(aiMesh* mesh, const aiScene* scene);
+    URef<Mesh> ProcessMesh(aiMesh* mesh, const aiScene* scene);
 
     std::vector<Texture> LoadMaterialTextures(aiMaterial* material, aiTextureType type, std::string_view typeName);
 private:
     std::string m_Directory;
-    std::vector<std::unique_ptr<Mesh>> m_Meshes;
+    std::vector<URef<Mesh>> m_Meshes;
 
     std::vector<Texture> m_TexturesLoaded;
 };

@@ -25,7 +25,7 @@ struct Vertex
 
 struct Texture
 {
-    std::shared_ptr<Texture2D> Texture;
+    SRef<Texture2D> Texture;
     std::string Type;
     std::string Path;
 };
