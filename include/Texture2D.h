@@ -12,10 +12,13 @@
 
 #include <glad/glad.h>
 
+/// @brief 使用是应尽可能的使用指针来初始化这个实例，因为它在析构函数中释放掉了 TextureID (纹理ID)。
+/// 并且在较高的作用域中来包含这个指针，达到延迟释放的效果。如果作用域较小的话，读取完纹理后作用域结束会
+/// 调用它的析构，导致纹理被释放
 class Texture2D
 {
 public:
-    Texture2D(std::string_view filename, uint16_t rgbType = GL_RGB);
+    Texture2D(std::string_view filename);
     ~Texture2D();
 
     int GetWidth() const { return m_Width; }
